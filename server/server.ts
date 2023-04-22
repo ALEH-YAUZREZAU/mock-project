@@ -1,5 +1,5 @@
-import { ApolloServer, gql } from "apollo-server-micro";
-import { PrismaClient } from "@prisma/client";
+const { ApolloServer, gql } = require("apollo-server");
+const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
@@ -29,12 +29,6 @@ const resolvers = {
 
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
-export default async (req: any, res: any) => {
-  return apolloServer.createHandler({ path: "/api/graphql" })(req, res);
-};
+apolloServer.listen({ port: 4000 }).then(({ url }: { url: string }) => {
+  console.log(`🚀 GraphQL server ready at ${url}`);
+});
