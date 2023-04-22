@@ -1,4 +1,5 @@
 import { useQuery, gql } from "@apollo/client";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const USERS_QUERY = gql`
   query Users {
@@ -11,6 +12,11 @@ const USERS_QUERY = gql`
 
 export default function Home() {
   const { loading, error, data } = useQuery(USERS_QUERY);
+  const { data: session } = useSession();
+
+  if (!session) {
+    return <button onClick={() => signIn("google")}>Sign in with Google</button>;
+  }
 
   if (loading) {
     return <div>Loading...</div>;
