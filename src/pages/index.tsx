@@ -1,16 +1,16 @@
 import { useQuery, gql } from "@apollo/client";
-
-const USERS_QUERY = gql`
-  query Users {
-    users {
-      id
-      email
-    }
-  }
-`;
+import { signIn, useSession } from "next-auth/react";
+import { ME_QUERY } from "@lib/queries";
 
 export default function Home() {
-  const { loading, error, data } = useQuery(USERS_QUERY);
+  const { loading, error, data } = useQuery(ME_QUERY);
+  const { data: session } = useSession();
+
+  const user = data?.me;
+
+  if (!session) {
+    return <button onClick={() => signIn("google")}>Sign in with Google</button>;
+  }
 
   if (loading) {
     return <div>Loading...</div>;
@@ -22,10 +22,15 @@ export default function Home() {
 
   return (
     <div>
-      <h1>Users</h1>
+      <h1>{user.name}</h1>
+      <img src={user.image} alt={user.name} />
+      <p>Email: {user.email}</p>
+      <h2>Accounts:</h2>
       <ul>
-        {data.users.map((user: { id: number; email: string }) => (
-          <li key={user.id}>{user.email}</li>
+        {user?.accounts?.map((account: any) => (
+          <li key={account.id}>
+            {account.provider} - {account.providerAccountId}
+          </li>
         ))}
       </ul>
     </div>

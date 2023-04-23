@@ -1,16 +1,15 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
+import apolloClient from "../lib/apolloClient";
 
-const client = new ApolloClient({
-  uri: "http://localhost:4000", // Обновите URI для использования нового сервера
-  cache: new InMemoryCache(),
-});
-
-function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
-    <ApolloProvider client={client}>
-      <Component {...pageProps} />
-    </ApolloProvider>
+    <SessionProvider session={session}>
+      <ApolloProvider client={apolloClient}>
+        <Component {...pageProps} />
+      </ApolloProvider>
+    </SessionProvider>
   );
 }
 
