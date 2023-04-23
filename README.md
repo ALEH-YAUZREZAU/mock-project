@@ -1,4 +1,4 @@
-Cтек технологий - React, Next.JS, TypeScript, Node.JS, PrismaORM, GraphQL, ReactNative
+Cтек технологий - React, Next.JS, TypeScript, PrismaORM, GraphQL + ReactNative
 
 ## Before start
 

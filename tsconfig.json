@@ -20,6 +20,7 @@
     "paths": {
       "@api/*": ["src/pages/api/*"],
       "@lib/*": ["src/lib/*"],
+      "@hooks/*": ["src/lib/hooks/*"],
       "@components/*": ["src/lib/components/*"],
     },
   },
