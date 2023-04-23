@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"next dev\" \"ts-node server/server.ts\"",
+    "dev:https": "node server.js",
+    "dev": "concurrently \"npm run dev:https\" \"ts-node server/server.ts\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -15,6 +16,8 @@
     "apollo-server": "^3.12.0",
     "apollo-server-micro": "^3.12.0",
     "graphql": "^16.6.0",
+    "https": "^1.0.0",
+    "jsonwebtoken": "^9.0.0",
     "next": "13.3.1",
     "next-auth": "^4.22.1",
     "prisma": "^4.13.0",
@@ -22,6 +25,7 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.1",
     "@types/next-auth": "^3.15.0",
     "@types/node": "18.15.13",
     "@types/react": "18.0.38",
