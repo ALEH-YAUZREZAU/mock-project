@@ -20,13 +20,22 @@ export default NextAuth({
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   callbacks: {
-    async jwt({ token, user, account, session, isNewUser }) {
+    async jwt({ token, user, account }) {
       if (user) {
         token.id = user.id;
       }
-      token.accessToken = jwt.sign(token, process.env.JWT_SECRET as string);
+
+      if (account) {
+        token.accessToken = account.accessToken;
+      }
 
       return token;
+    },
+    async signIn({ user, account }) {
+      if (account) {
+        account.accessToken = jwt.sign(user, process.env.JWT_SECRET as string);
+      }
+      return true;
     },
     async session({ session, token, user }) {
       const sess = {

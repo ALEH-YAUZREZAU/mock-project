@@ -1,38 +1,52 @@
-import { useQuery, gql } from "@apollo/client";
-import { signIn, useSession } from "next-auth/react";
-import { ME_QUERY } from "@lib/queries";
+import { signIn, signOut } from "next-auth/react";
+import { useUser, useUserSession } from "@hooks/index";
+import { Container, Typography, Box, Avatar, Button } from "@mui/material";
 
-export default function Home() {
-  const { loading, error, data } = useQuery(ME_QUERY);
-  const { data: session } = useSession();
-
-  const user = data?.me;
-
-  if (!session) {
-    return <button onClick={() => signIn("google")}>Sign in with Google</button>;
-  }
+const Home = () => {
+  const { session, loading } = useUserSession();
+  const { user } = useUser();
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
+  if (!session) {
+    return (
+      <Container maxWidth="sm">
+        <Box textAlign="center" marginTop={4}>
+          <Typography variant="h4">You're not logged in</Typography>
+          <Box marginTop={2}>
+            <Button variant="contained" color="primary" onClick={() => signIn("google")}>
+              Sign In with Google
+            </Button>
+          </Box>
+        </Box>
+      </Container>
+    );
   }
 
+  const account = user?.accounts ? user?.accounts[0] : null;
+
   return (
-    <div>
-      <h1>{user.name}</h1>
-      <img src={user.image} alt={user.name} />
-      <p>Email: {user.email}</p>
-      <h2>Accounts:</h2>
-      <ul>
-        {user?.accounts?.map((account: any) => (
-          <li key={account.id}>
-            {account.provider} - {account.providerAccountId}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Container maxWidth="sm">
+      <Box textAlign="center" marginTop={4}>
+        <Avatar alt={user?.name || ""} src={user?.image || ""} sx={{ width: 96, height: 96 }} />
+        <Typography variant="h4">{user?.name}</Typography>
+        <Typography variant="subtitle1">{user?.email}</Typography>
+        {account && (
+          <>
+            <Typography variant="body1">Provider: {account.provider}</Typography>
+            <Typography variant="body1">Provider Account ID: {account.providerAccountId}</Typography>
+          </>
+        )}
+        <Box marginTop={2}>
+          <Button variant="contained" color="secondary" onClick={() => signOut()}>
+            Logout
+          </Button>
+        </Box>
+      </Box>
+    </Container>
   );
-}
+};
+
+export default Home;
