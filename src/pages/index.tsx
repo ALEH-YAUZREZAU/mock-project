@@ -1,28 +1,13 @@
 import { signIn, signOut } from "next-auth/react";
-import { useUser, useUserSession } from "@hooks/index";
+import { useUser, useAuth } from "@hooks/index";
 import { Container, Typography, Box, Avatar, Button } from "@mui/material";
 
 const Home = () => {
-  const { session, loading } = useUserSession();
+  const { loading } = useAuth();
   const { user } = useUser();
 
   if (loading) {
     return <div>Loading...</div>;
-  }
-
-  if (!session) {
-    return (
-      <Container maxWidth="sm">
-        <Box textAlign="center" marginTop={4}>
-          <Typography variant="h4">You're not logged in</Typography>
-          <Box marginTop={2}>
-            <Button variant="contained" color="primary" onClick={() => signIn("google")}>
-              Sign In with Google
-            </Button>
-          </Box>
-        </Box>
-      </Container>
-    );
   }
 
   const account = user?.accounts ? user?.accounts[0] : null;
