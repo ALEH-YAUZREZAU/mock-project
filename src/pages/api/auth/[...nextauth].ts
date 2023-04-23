@@ -24,10 +24,7 @@ export default NextAuth({
       if (user) {
         token.id = user.id;
       }
-
-      if (account) {
-        token.accessToken = jwt.sign(token, process.env.JWT_SECRET as string);
-      }
+      token.accessToken = jwt.sign(token, process.env.JWT_SECRET as string);
 
       return token;
     },

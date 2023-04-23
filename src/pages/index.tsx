@@ -18,8 +18,6 @@ export default function Home() {
     return <div>Error: {error.message}</div>;
   }
 
-  console.log(data);
-
   return (
     <div>
       <h1>Users</h1>
