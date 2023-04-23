@@ -1,30 +1,19 @@
 import { gql } from "@apollo/client";
 
-export const USERS_QUERY = gql`
-  query Users {
-    users {
+export const ME_QUERY = gql`
+  query {
+    me {
       id
       email
-    }
-  }
-`;
-
-export const GET_USER_QUERY = gql`
-  query GetUser($id: ID!) {
-    user(id: $id) {
-      id
       name
-      email
-    }
-  }
-`;
-
-export const UPDATE_USER_MUTATION = gql`
-  mutation UpdateUser($id: ID!, $input: UpdateUserInput!) {
-    updateUser(id: $id, input: $input) {
-      id
-      name
-      email
+      image
+      accounts {
+        id
+        userId
+        type
+        provider
+        providerAccountId
+      }
     }
   }
 `;

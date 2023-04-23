@@ -1,17 +1,9 @@
 import { useQuery, gql } from "@apollo/client";
-import { signIn, signOut, useSession } from "next-auth/react";
-
-const USERS_QUERY = gql`
-  query Users {
-    users {
-      id
-      email
-    }
-  }
-`;
+import { signIn, useSession } from "next-auth/react";
+import { ME_QUERY } from "@lib/queries";
 
 export default function Home() {
-  const { loading, error, data } = useQuery(USERS_QUERY);
+  const { loading, error, data } = useQuery(ME_QUERY);
   const { data: session } = useSession();
 
   if (!session) {
@@ -26,14 +18,11 @@ export default function Home() {
     return <div>Error: {error.message}</div>;
   }
 
+  console.log(data);
+
   return (
     <div>
       <h1>Users</h1>
-      <ul>
-        {data.users.map((user: { id: number; email: string }) => (
-          <li key={user.id}>{user.email}</li>
-        ))}
-      </ul>
     </div>
   );
 }
