@@ -7,7 +7,7 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext(async (_, { headers }) => {
-  const session = await getSession();
+  const session: any = await getSession();
   const token = session?.accessToken;
 
   return {
