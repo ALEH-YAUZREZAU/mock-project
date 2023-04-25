@@ -5,13 +5,13 @@ import dotenv from "dotenv";
 
 import { authMiddleware } from "./authMiddleware";
 
-import { userTypeDefs, userResolvers } from "./graphql/User";
+import { userResolvers } from "./graphql/User";
+import typeDefs from "./graphql";
 
 dotenv.config({ path: ".env.local" });
 
 const prisma = new PrismaClient();
 
-const typeDefs = [userTypeDefs];
 const resolvers = mergeResolvers(userResolvers);
 
 const apolloServer = new ApolloServer({
