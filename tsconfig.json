@@ -19,6 +19,7 @@
     "incremental": true,
     "paths": {
       "@api/*": ["src/pages/api/*"],
+      "@apiHooks/*": ["src/lib/api/*"],
       "@lib/*": ["src/lib/*"],
       "@hooks/*": ["src/lib/hooks/*"],
       "@components/*": ["src/lib/components/*"],

@@ -4,8 +4,4 @@ import { userTypeDefs } from "./User";
 
 export const combinedTypeDefs = mergeTypeDefs([userTypeDefs]);
 
-// export const combinedTypeDefs = gql`
-//   ${userTypeDefs}
-// `;
-
 export default combinedTypeDefs;

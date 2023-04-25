@@ -1,5 +1,6 @@
 import { signIn, signOut } from "next-auth/react";
-import { useUser, useAuth } from "@hooks/index";
+import { useAuth } from "@hooks/index";
+import { useUser } from "@apiHooks/index";
 import { Container, Typography, Box, Avatar, Button } from "@mui/material";
 
 const Home = () => {
