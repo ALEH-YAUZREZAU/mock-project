@@ -21,9 +21,46 @@ export type Account = {
   userId: Scalars['String'];
 };
 
+export type CreateAccountInput = {
+  provider: Scalars['String'];
+  providerAccountId: Scalars['String'];
+  type: Scalars['String'];
+};
+
+export type CreateUserInput = {
+  accounts: Array<CreateAccountInput>;
+  email: Scalars['String'];
+  image?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  role: Role;
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  updateUser: User;
+};
+
+
+export type MutationUpdateUserArgs = {
+  input: UpdateUserInput;
+};
+
 export type Query = {
   __typename?: 'Query';
   me: User;
+};
+
+export enum Role {
+  Admin = 'ADMIN',
+  User = 'USER'
+}
+
+export type UpdateUserInput = {
+  email?: InputMaybe<Scalars['String']>;
+  id: Scalars['String'];
+  image?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  role?: InputMaybe<Role>;
 };
 
 export type User = {
