@@ -1,11 +1,10 @@
 import { Context } from "../../types";
+import { checkAuth } from "../../utils";
 
 export const userResolvers = {
   Query: {
     me: async (_: any, __: any, context: Context) => {
-      if (!context.user) {
-        throw new Error("User Unauthorized");
-      }
+      checkAuth(context);
 
       const currentUser = await context.prisma.user.findUnique({
         where: { id: context.user.id },
