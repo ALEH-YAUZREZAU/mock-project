@@ -1,6 +1,6 @@
 import { Context } from "../../types";
 import { checkAuth } from "../../utils";
-import { MutationUpdateUserArgs } from "../../graphqlTypes";
+import { MutationUpdateUserArgs, Role } from "../../graphqlTypes";
 
 export const userResolvers = {
   Mutation: {
@@ -17,7 +17,7 @@ export const userResolvers = {
           email: email || undefined,
           name: name || undefined,
           image: image || undefined,
-          role: role || "USER",
+          role: role || Role.User,
         },
       });
 

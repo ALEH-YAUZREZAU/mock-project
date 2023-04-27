@@ -5,7 +5,7 @@
   "scripts": {
     "dev:https": "node server.js",
     "generate": "ts-node --project tsconfig.json  node_modules/.bin/graphql-codegen",
-    "dev": "concurrently \"npm run dev:https\" \"ts-node server/server.ts\"",
+    "dev": "concurrently \"npm run generate\" \"npm run dev:https\" \"ts-node server/server.ts\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
