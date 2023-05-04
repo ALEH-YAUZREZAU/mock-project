@@ -26,15 +26,13 @@ export default NextAuth({
       }
 
       if (account) {
-        token.customToken = account.customToken;
+        const customToken = jwt.sign(user, process.env.JWT_SECRET as string);
+        token.customToken = customToken;
       }
 
       return token;
     },
-    async signIn({ user, account }) {
-      if (account) {
-        account.customToken = jwt.sign(user, process.env.JWT_SECRET as string);
-      }
+    async signIn() {
       return true;
     },
     async session({ session, token, user }) {
