@@ -70,4 +70,5 @@ export type User = {
   id: Scalars['String'];
   image?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  role: Role;
 };

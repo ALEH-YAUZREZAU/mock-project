@@ -5,14 +5,14 @@ import { useNetworkError } from "../providers/NetworkError";
 import { useEffect } from "react";
 
 export const useUser = () => {
-  const { setError } = useNetworkError();
+  // const { setError } = useNetworkError();
   const { data, error, ...other } = useQuery(ME_QUERY);
 
-  useEffect(() => {
-    if (error) {
-      setError(error);
-    }
-  }, [error]);
+  // useEffect(() => {
+  //   if (error) {
+  //     setError(error);
+  //   }
+  // }, [error]);
 
   return {
     user: data?.me,

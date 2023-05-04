@@ -27,6 +27,7 @@ export const userTypeDefs = gql`
     email: String!
     name: String
     image: String
+    role: Role!
     accounts: [Account!]!
   }
 

@@ -26,21 +26,21 @@ export default NextAuth({
       }
 
       if (account) {
-        token.accessToken = account.accessToken;
+        token.customToken = account.customToken;
       }
 
       return token;
     },
     async signIn({ user, account }) {
       if (account) {
-        account.accessToken = jwt.sign(user, process.env.JWT_SECRET as string);
+        account.customToken = jwt.sign(user, process.env.JWT_SECRET as string);
       }
       return true;
     },
     async session({ session, token, user }) {
       const sess = {
         ...session,
-        accessToken: token?.accessToken,
+        customToken: token?.customToken,
         user: {
           ...session.user,
           id: user?.id as string,
