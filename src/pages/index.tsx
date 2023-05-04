@@ -1,15 +1,11 @@
 import { signIn, signOut } from "next-auth/react";
-import { useAuth } from "@hooks/index";
 import { useUser } from "@apiHooks/index";
 import { Container, Typography, Box, Avatar, Button } from "@mui/material";
 
-const Home = () => {
-  const { loading } = useAuth();
-  const { user } = useUser();
+import { withAuth } from "../lib/components";
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+const Home = () => {
+  const { user } = useUser();
 
   const account = user?.accounts ? user?.accounts[0] : null;
 
@@ -35,4 +31,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default withAuth(Home);
